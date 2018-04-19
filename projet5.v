@@ -21,6 +21,7 @@ Definition doubleneg := forall (P : Prop), (~P -> P) -> P.
 
 
 
+
 (*Loi de Pierce => Double négation *)
 Lemma one : pierce -> doubleneg.
 Proof.
