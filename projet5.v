@@ -155,9 +155,12 @@ Qed.
 
 (*question 2*)
 
-
-
-
+(*Les 4 implications de De Morgan sont les suivantes :
+ ~(A \/ B) -> ~A /\ ~B
+ ~A /\ ~B -> ~(A \/ B)
+ ~(A /\ B) -> ~A \/ ~B    : faux en logique intuitionniste mais prouvable en coq
+ ~A \/ ~B -> ~(A /\ B)
+*)
 
 
 
@@ -175,17 +178,15 @@ Inductive repeats {X : Type} : list X -> Prop :=
 
 (*question 2*)
 
-
+(*l0 partage un ou plusieurs élément(s) avec l1  *)
 Definition sharesElements (X : Type) (l0 l1 : list X) := (forall n : X, (In n l0) -> (In n l1)).
 Definition drawers (X : Type) (l0 l1 : list X) := (sharesElements X l0 l1) /\ ((length l1) < (length l0)) -> repeats l0.
 
 (*question 3*)
 
-
-
-
-
-
-
-
+Lemma proofDrawers : forall X l0 l1, drawers X l0 l1.
+Proof.
+intros.
+unfold drawers.
+Qed.
 

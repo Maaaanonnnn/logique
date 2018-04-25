@@ -97,13 +97,14 @@ Eval compute in f(g(h(Double(DoubleOne(Double(Double Zero)))))).
 
 (*question 4*)
 
-
-Lemma inter2 : forall (b:bin), g (h b) = 0 -> h b = Zero.
+Lemma inter2 : forall (b:bin), g b = g (h b).
 Proof.
-intros.
 induction b.
-reflexivity.
-  - now rewrite 
+- reflexivity.
+- simpl.
+  destruct (h b).
+  + rewrite IHb.
+    destruct IHb.
 Qed.
 
 
@@ -117,7 +118,13 @@ Proof.
   easy.
 Qed.
 
-
+Lemma inter11 : forall (b:bin), Double b = h (Double b).
+Proof.
+intros.
+induction b.
+- simpl.
+  + .
+Qed.
 
 
 Lemma fsteq : forall (b : bin), g b = g (h b).
