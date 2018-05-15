@@ -185,8 +185,52 @@ Definition drawers (X : Type) (l0 l1 : list X) := (sharesElements X l0 l1) /\ ((
 (*question 3*)
 
 Lemma proofDrawers : forall X l0 l1, drawers X l0 l1.
-Proof.
+(*Proof.
 intros.
 unfold drawers.
+intro H.
+destruct H.
+induction l1.
+- .
+Qed.*)
+
+(*question 4*)
+
+
+
+
+
+
+
+Lemma drawertohyp (X: Type) (l0 l1 : list X) : (sharesElements X l0 l1) /\ ((length l1) < (length l0)) -> repeats l0.
+Proof.
+intros.
+destruct H.
+induction l0.
+- easy.
+- destruct H0.
+  + destruct IHl0.
+    .
+
 Qed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
