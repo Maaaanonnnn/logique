@@ -228,17 +228,37 @@ Definition sharesElements (X : Type) (l0 l1 : list X) := (forall n : X, (In n l0
 Definition drawers (X : Type) (l0 l1 : list X) := (sharesElements X l0 l1) /\ ((length l1) < (length l0)) -> repeats l0.
 
 (*question 3*)
+Print In.
+
+Lemma addlists : forall (X: Type) (l : list X) (x : X), (In x l) -> (exists (l1 l2 : list X), l = l1++(x::l2)).
+Proof.
+intros.
+induction l1.
+- easy.
+- destruct H.
+  + rewrite H.
+    (exists nil, l1).
+    easy.
+  + apply IHl1 in H.
+    destruct H.
+    destruct H.
+    (exists (a::x0), x1).
+    Search "++".
+    rewrite H.
+    easy.
+Qed.
+
+
 
 Lemma proofDrawers : forall X l0 l1, drawers X l0 l1.
-(*Proof.
-intros.
+Proof.
 unfold drawers.
-intro H.
+unfold sharesElements.
+intros.
 destruct H.
 induction l1.
-- .
-Qed.*)
-
+- destruct H0.
+  + .
 
 
 
