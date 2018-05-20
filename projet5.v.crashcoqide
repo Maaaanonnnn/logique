@@ -158,54 +158,9 @@ Qed.
 (*Les 4 implications de De Morgan sont les suivantes :
  ~(A \/ B) -> ~A /\ ~B
  ~A /\ ~B -> ~(A \/ B)
- ~(A /\ B) -> ~A \/ ~B    : faux en logique intuitionniste donc pas prouvable en coq
- ~A \/ ~B -> ~(A /\ B)    : 
+ ~(A /\ B) -> ~A \/ ~B    : faux en logique intuitionniste mais prouvable en coq
+ ~A \/ ~B -> ~(A /\ B)
 *)
-
-
-Definition deMorgan1 := forall (P Q : Prop), ~(P /\ Q ) <-> ~P \/ ~ Q.
-Definition deMorgan2 := forall (P Q : Prop), ~(P \/ Q ) <-> ~P /\ ~Q.
-
-
-Lemma deMorgan_equi : deMorgan2.
-Proof.
-unfold deMorgan2.
-split.
-- intros.
-  split.
-  + intro; apply H; left; easy.
-  + intro; apply H; right; easy.
-- intros.
-  destruct H.
-  intro.
-  destruct H1.
-  now apply H in H1.
-  now apply H0 in H1.
-Qed.
-
-Lemma deMorgan1_notdirect : forall (P Q : Prop), ~P \/ ~Q -> ~(P /\ Q).
-Proof.
-intros.
-destruct H.
-- intro H0.
-  apply H.
-  destruct H0.
-  easy.
-- intros H0.
-  apply H.
-  destruct H0.
-  easy.
-Qed.
-
-
-(* question 3 *)
-
-(* ~(P /\ Q ) -> ~P \/ ~ Q  est faux en logique intuitionniste, de ce fait,
-   cette implication n'est pas prouvable en Coq*)
-
-(* question 4 *)
-
-(* question 5 *)
 
 
 
@@ -238,10 +193,6 @@ destruct H.
 induction l1.
 - .
 Qed.*)
-
-
-
-
 
 (*question 4*)
 
