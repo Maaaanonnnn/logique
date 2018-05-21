@@ -230,6 +230,8 @@ Definition drawers (X : Type) (l0 l1 : list X) := (sharesElements X l0 l1) /\ ((
 (*question 3*)
 Print In.
 
+Axiom tiersExclu : tiersexclu.
+
 Lemma addlists : forall (X: Type) (l : list X) (x : X), (In x l) -> (exists (l1 l2 : list X), l = l1++(x::l2)).
 Proof.
 intros.
@@ -243,8 +245,28 @@ induction l1.
     destruct H.
     destruct H.
     (exists (a::x0), x1).
-    Search "++".
     rewrite H.
+    easy.
+Qed.
+
+
+Lemma deleteLists : forall (X:Type) (x a : X) (l1 l2: list X), x<>a -> In x (l1 ++ (a::l2)) -> In x (l1++l2).
+Proof.
+intros.
+induction l1.
+- simpl in H0.
+  destruct H0.
+  + symmetry in H0.
+    contradiction.
+  + simpl.
+    easy.
+- destruct (tiersExclu (a0 = x)).
+  + right.
+    apply IHl1.
+    destruct H0.
+    contradiction.
+    easy.
+  + left.
     easy.
 Qed.
 
@@ -257,8 +279,14 @@ unfold sharesElements.
 intros.
 destruct H.
 induction l1.
-- destruct H0.
-  + .
+- easy.
+- destruct (tiersExclu (In a l1)).
+   + right.
+    apply IHl1.
+    ++ destruct H0.
+      +++ simpl in H.
+          intro.
+          
 
 
 
