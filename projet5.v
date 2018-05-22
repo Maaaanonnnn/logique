@@ -282,14 +282,10 @@ induction l1.
 - easy.
 - destruct (tiersExclu (In a l1)).
    + right.
-    apply IHl1.
-    ++ destruct H0.
-      +++ simpl in H.
-          intro.
-          
-
-
-
+     cut (repeats l1).
+      ++ easy.
+      ++ .
+Qed.
 
 (*question 4*)
 
