@@ -232,23 +232,6 @@ Print In.
 
 Axiom tiersExclu : tiersexclu.
 
-Lemma addlists : forall (X: Type) (l : list X) (x : X), (In x l) -> (exists (l1 l2 : list X), l = l1++(x::l2)).
-Proof.
-intros.
-induction l1.
-- easy.
-- destruct H.
-  + rewrite H.
-    (exists nil, l1).
-    easy.
-  + apply IHl1 in H.
-    destruct H.
-    destruct H.
-    (exists (a::x0), x1).
-    rewrite H.
-    easy.
-Qed.
-
 
 Lemma deleteLists : forall (X:Type) (x a : X) (l1 l2: list X), x<>a -> In x (l1 ++ (a::l2)) -> In x (l1++l2).
 Proof.
@@ -272,20 +255,50 @@ Qed.
 
 
 
+
+
+Lemma concatlists : forall (X: Type) (l : list X) (x : X), (In x l) -> (exists (l1 l2 : list X), l = l1++(x::l2)).
+Proof.
+intros.
+induction l1.
+- easy.
+- destruct H.
+  + rewrite H.
+    (exists nil, l1).
+    easy.
+  + apply IHl1 in H.
+    destruct H.
+    destruct H.
+    (exists (a::x0), x1).
+    rewrite H.
+    easy.
+Qed.
+
+
+
+
+
 Lemma proofDrawers : forall X l0 l1, drawers X l0 l1.
 Proof.
 unfold drawers.
 unfold sharesElements.
-intros.
-destruct H.
 induction l1.
+intros.
 - easy.
-- destruct (tiersExclu (In a l1)).
+- intros.
+  destruct (tiersExclu (In a l1)).
    + right.
-     cut (repeats l1).
-      ++ easy.
-      ++ .
+     destruct H.
+     destruct H0.
+     destruct H1.
+     ++ pose proof concatlists.
+        pose proof (H0 X l2 a).
+        destruct H1.
+        +++ 
+
+
 Qed.
+
 
 (*question 4*)
 
