@@ -278,7 +278,7 @@ Qed.
 
 
 
-Lemma proofDrawers : forall X l0 l1, drawers X l0 l1.
+(*Lemma proofDrawers : forall X l0 l1, drawers X l0 l1.
 Proof.
 unfold drawers.
 unfold sharesElements.
@@ -294,29 +294,30 @@ intros.
      ++ pose proof concatlists.
         pose proof (H0 X l2 a).
         destruct H1.
-        +++ 
+        +++ . 
 
 
-Qed.
+Qed.*)
 
 
 (*question 4*)
 
 
+Inductive noRepeats {X : Type } : list X -> Prop :=
+| initialisation: noRepeats nil
+| induction : forall x l, noRepeats l -> ~ In x l -> noRepeats (x::l).
 
 
+Definition repeat (X :Type) (l : list X) := ~ noRepeats l.
 
 
-
-Lemma drawertohyp (X: Type) (l0 l1 : list X) : (sharesElements X l0 l1) /\ ((length l1) < (length l0)) -> repeats l0.
+Lemma drawertohyp (X: Type) (l0 l1 : list X) : (sharesElements X l0 l1) -> ((length l1) < (length l0)) -> repeats l0.
 Proof.
+unfold sharesElements.
 intros.
-destruct H.
 induction l0.
 - easy.
-- destruct H0.
-  + destruct IHl0.
-    .
+- unfold repeat.
 
 Qed.
 
